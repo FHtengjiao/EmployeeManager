@@ -5,9 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-@WebFilter(filterName = "encodingFilter", urlPatterns = "/*.do",
+@WebFilter(filterName = "encodingFilter", urlPatterns = "*.do",
     initParams = {
-        @WebInitParam(name = "ENCODING", value = "UFT-8")
+        @WebInitParam(name = "ENCODING", value = "UTF-8")
     }
 )
 public class EncodingFilter implements Filter {

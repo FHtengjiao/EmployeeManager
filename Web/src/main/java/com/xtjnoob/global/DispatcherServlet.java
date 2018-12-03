@@ -19,6 +19,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        super.init();
         applicationContext = new ClassPathXmlApplicationContext("spring.xml");
     }
 

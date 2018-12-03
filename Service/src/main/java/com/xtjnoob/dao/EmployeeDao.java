@@ -1,9 +1,11 @@
 package com.xtjnoob.dao;
 
 import com.xtjnoob.entity.Employee;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface EmployeeDao {
     void insert(Employee employee);
 

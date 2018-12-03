@@ -17,7 +17,9 @@ public class Employee {
     private Date birthday;
     private String mark;
 
-    public Employee() {
+    private Department department;
+
+    public Employee(String account, String password, String status, int i, String name, String gender, String idCard, Date date, String mark) {
     }
 
     public Employee(Integer id, String account, String password, String status, Integer departmentId, String name, String gender, String idCard, Date enterTime, Date leaveTime, Date birthday, String mark) {
@@ -30,6 +32,44 @@ public class Employee {
         this.gender = gender;
         this.idCard = idCard;
         this.enterTime = enterTime;
+        this.leaveTime = leaveTime;
+        this.birthday = birthday;
+        this.mark = mark;
+    }
+
+    public Employee(Integer id, String account, String password, String status, Integer departmentId, String name, String gender, String idCard, Date birthday, String mark) {
+        this.id = id;
+        this.account = account;
+        this.password = password;
+        this.status = status;
+        this.departmentId = departmentId;
+        this.name = name;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.birthday = birthday;
+        this.mark = mark;
+    }
+
+    public Employee(String account, String password, String status, Integer departmentId, String name, String gender, String idCard, Date enterTime, Date leaveTime, Date birthday, String mark) {
+        this.account = account;
+        this.password = password;
+        this.status = status;
+        this.departmentId = departmentId;
+        this.name = name;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.enterTime = enterTime;
+        this.leaveTime = leaveTime;
+        this.birthday = birthday;
+        this.mark = mark;
+    }
+
+    public Employee(String status, Integer departmentId, String name, String gender, String idCard, Date leaveTime, Date birthday, String mark) {
+        this.status = status;
+        this.departmentId = departmentId;
+        this.name = name;
+        this.gender = gender;
+        this.idCard = idCard;
         this.leaveTime = leaveTime;
         this.birthday = birthday;
         this.mark = mark;
@@ -129,5 +169,13 @@ public class Employee {
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

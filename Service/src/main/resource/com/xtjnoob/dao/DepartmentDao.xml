@@ -32,4 +32,5 @@
     <select id="getAllDepartments" resultMap="resultMap">
         SELECT * FROM `department`
     </select>
+
 </mapper>
