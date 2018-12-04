@@ -19,7 +19,19 @@ public class Employee {
 
     private Department department;
 
-    public Employee(String account, String password, String status, int i, String name, String gender, String idCard, Date date, String mark) {
+    public Employee() {
+    }
+
+    public Employee(String account, String password, String status, Integer departmentId, String name, String gender, String idCard, Date birthday, String mark) {
+        this.account = account;
+        this.password = password;
+        this.status = status;
+        this.departmentId = departmentId;
+        this.name = name;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.birthday = birthday;
+        this.mark = mark;
     }
 
     public Employee(Integer id, String account, String password, String status, Integer departmentId, String name, String gender, String idCard, Date enterTime, Date leaveTime, Date birthday, String mark) {

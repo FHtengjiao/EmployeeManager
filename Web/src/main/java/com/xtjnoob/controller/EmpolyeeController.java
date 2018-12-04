@@ -1,7 +1,9 @@
 package com.xtjnoob.controller;
 
+import com.xtjnoob.entity.Department;
 import com.xtjnoob.entity.Employee;
 import com.xtjnoob.global.StringUtils;
+import com.xtjnoob.service.DepartmentService;
 import com.xtjnoob.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +20,18 @@ public class EmpolyeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Employee> employees = employeeService.getAll();
-        request.setAttribute("LIST", employees);
+        request.setAttribute("EMPLOYEES", employees);
         request.getRequestDispatcher("/pages/employee_list.jsp").forward(request, response);
     }
 
     public void toAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Department> departments = departmentService.getAll();
+        request.setAttribute("DEPARTMENTS", departments);
         request.getRequestDispatcher("/pages/employee_add.jsp").forward(request, response);
     }
 
@@ -53,6 +60,8 @@ public class EmpolyeeController {
     public void toEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         Employee employee = employeeService.getOne(Integer.parseInt(id));
+        List<Department> departments = departmentService.getAll();
+        request.setAttribute("DEPARTMENTS", departments);
         request.setAttribute("EMPLOYEE", employee);
         request.getRequestDispatcher("/pages/employee_edit.jsp").forward(request, response);
     }

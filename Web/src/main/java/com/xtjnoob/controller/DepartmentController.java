@@ -1,6 +1,5 @@
 package com.xtjnoob.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import com.xtjnoob.entity.Department;
 import com.xtjnoob.global.StringUtils;
 import com.xtjnoob.service.DepartmentService;

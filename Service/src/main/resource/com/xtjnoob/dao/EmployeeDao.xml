@@ -48,7 +48,7 @@
         SELECT * FROM `employee` WHERE id = #{id}
     </select>
 
-    <select id="getAllDepartments" resultMap="resultMap">
+    <select id="getAllEmployees" resultMap="resultMap">
         SELECT * FROM `employee`
     </select>
 </mapper>
