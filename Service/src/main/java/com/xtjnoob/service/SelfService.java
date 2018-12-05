@@ -3,7 +3,7 @@ package com.xtjnoob.service;
 import com.xtjnoob.entity.Employee;
 
 public interface SelfService {
-    void login(String account);
+    Employee login(String account, String password);
 
-    void changePassword(Employee employee, String password);
+    void changePassword(Integer id, String password);
 }
