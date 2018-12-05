@@ -53,10 +53,18 @@
                     <td>${emp.name}</td>
                     <td>${emp.account}</td>
                     <td>${emp.department.name}</td>
-                    <td>${emp.status}</td>
+                    <c:choose>
+                        <c:when test="${emp.status=='离职'}">
+                            <td>${emp.status}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>${emp.status}<a href="${pageContext.request.contextPath}/employee/leave.do?id=${emp.id}" class="btn">离职</a></td>
+                        </c:otherwise>
+                    </c:choose>
                     <td>
                         <a href="${pageContext.request.contextPath}/employee/toEdit.do?id=${emp.id}" class="btn">编辑</a>
                         <a href="${pageContext.request.contextPath}/employee/delete.do?id=${emp.id}" class="btn">删除</a>
+                        <a href="${pageContext.request.contextPath}/employee/detail.do?id=${emp.id}" class="btn">详情</a>
                     </td>
                 </tr>
                 </c:forEach>

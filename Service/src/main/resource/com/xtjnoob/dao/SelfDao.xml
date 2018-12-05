@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtjnoob.dao.EmployeeDao">
+
+    <resultMap id="resultMap" type="Employee">
+        <id column="id" property="id" javaType="Integer"/>
+        <result column="account" property="account" javaType="String"/>
+        <result column="password" property="password" javaType="String"/>
+        <result column="status" property="status" javaType="String"/>
+        <result column="department_id" property="departmentId" javaType="Integer"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="gender" property="gender" javaType="String"/>
+        <result column="idcard" property="idCard" javaType="String"/>
+        <result column="enter_time" property="enterTime" javaType="java.util.Date"/>
+        <result column="leave_time" property="leaveTime" javaType="java.util.Date"/>
+        <result column="birthday" property="birthday" javaType="java.util.Date"/>
+        <result column="mark" property="mark" javaType="String"/>
+        <association property="department" column="department_id" javaType="Department" select="com.xtjnoob.dao.DepartmentDao.getDepartmentById"/>
+    </resultMap>
+
+
+    <select id="getEmployeeByAccount" resultMap="resultMap" parameterType="java.lang.String">
+        SELECT * FROM `employee` WHERE account = #{account}
+    </select>
+</mapper>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @Controller("employeeController")
@@ -37,7 +38,6 @@ public class EmpolyeeController {
 
     public void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String account = request.getParameter("account");
-        String password = request.getParameter("password");
         String status = request.getParameter("status");
         String departmentId = request.getParameter("department_id");
         String name = request.getParameter("name");
@@ -49,12 +49,12 @@ public class EmpolyeeController {
         if (StringUtils.isNotEmpty(account) && StringUtils.isNotEmpty(status)
                 && StringUtils.isNotEmpty(departmentId) && StringUtils.isNotEmpty(name)) {
             try {
-                employeeService.add(new Employee(account, password, status, Integer.parseInt(departmentId), name, gender, idCard, StringUtils.string2Date(birthday), mark));
+                employeeService.add(new Employee(account, status, Integer.parseInt(departmentId), name, gender, idCard, StringUtils.string2Date(birthday), mark));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        response.sendRedirect("/pages/employee_list.do");
+        response.sendRedirect("/employee/list.do");
     }
 
     public void toEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -67,17 +67,17 @@ public class EmpolyeeController {
     }
 
     public void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
         String status = request.getParameter("status");
         String departmentId = request.getParameter("department_id");
         String name = request.getParameter("name");
         String gender = request.getParameter("gender");
         String idCard = request.getParameter("id_card");
-        String leaveTime = request.getParameter("leave_time");
         String birthday = request.getParameter("birthday");
         String mark = request.getParameter("mark");
 
         try {
-            employeeService.edit(new Employee(status, Integer.parseInt(departmentId), name, gender, idCard, StringUtils.string2Date(leaveTime), StringUtils.string2Date(birthday), mark));
+            employeeService.edit(new Employee(Integer.parseInt(id), status, Integer.parseInt(departmentId), name, gender, idCard, StringUtils.string2Date(birthday), mark));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -95,9 +95,18 @@ public class EmpolyeeController {
     }
 
     public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id =  request.getParameter("id");
+        String id = request.getParameter("id");
         Employee employee = employeeService.getOne(Integer.parseInt(id));
         request.setAttribute("EMPLOYEE", employee);
         request.getRequestDispatcher("/pages/employee_detail.jsp").forward(request, response);
+    }
+
+    public void leave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Employee employee = employeeService.getOne(Integer.parseInt(id));
+        employee.setStatus("离职");
+        employee.setLeaveTime(new Date(System.currentTimeMillis()));
+        employeeService.edit(employee);
+        response.sendRedirect("/employee/list.do");
     }
 }

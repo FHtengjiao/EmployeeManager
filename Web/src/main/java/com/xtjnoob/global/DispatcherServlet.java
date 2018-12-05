@@ -38,7 +38,7 @@ public class DispatcherServlet extends HttpServlet {
             beanName = "selfController";
             methodName = beanAndMethod;
         }
-
+        System.out.println(beanName+" - "+methodName);
         Object bean = applicationContext.getBean(beanName);
         try {
             Method method = bean.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);

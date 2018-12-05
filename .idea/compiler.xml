@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Service" />
         <module name="service" />
-        <module name="Web" />
         <module name="web" />
+        <module name="Web" />
       </profile>
     </annotationProcessing>
   </component>

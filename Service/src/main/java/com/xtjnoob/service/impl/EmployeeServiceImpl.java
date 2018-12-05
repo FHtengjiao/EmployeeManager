@@ -16,9 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     public void add(Employee employee) {
-        if (employee.getPassword() == null) {
-            employee.setPassword("123456");
-        }
+        employee.setPassword("123456");
         employee.setEnterTime(new Date(System.currentTimeMillis()));
         employeeDao.insert(employee);
     }

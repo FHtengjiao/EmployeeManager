@@ -20,18 +20,18 @@
 
     <insert id="insert" useGeneratedKeys="true" parameterType="Employee">
       INSERT `employee`(account,password,`status`,department_id,name,gender,idcard,enter_time,leave_time,birthday,mark)
-      VALUES(#{account}, #{password},#{status},#{departmentId},#{name},#{gender},#{idCard},#{enterTiem},#{leaveTime},#{birthday},#{mark})
+      VALUES(#{account}, #{password},#{status},#{departmentId},#{name},#{gender},#{idCard},#{enterTime},#{leaveTime},#{birthday},#{mark})
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
-        DELETE FROM `emplyee` WHERE id = #{id}
+        DELETE FROM `employee` WHERE id = #{id}
     </delete>
 
     <update id="update" parameterType="Employee">
-        UPDATE `department`
+        UPDATE `employee`
           <set>
               <if test="password!=null and password!=''">password = #{password},</if>
-              <if test="status!=null and status!=''">status = #{status},</if>
+              <if test="status!=null and status!=''">`status` = #{status},</if>
               <if test="departmentId!=null">department_id = #{departmentId},</if>
               <if test="name!=null and name!=''">name = #{name},</if>
               <if test="gender!=null and gender!=''">gender = #{gender},</if>

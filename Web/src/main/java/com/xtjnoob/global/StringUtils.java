@@ -11,7 +11,11 @@ public class StringUtils {
     }
 
     public static Date string2Date(String target) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.parse(target);
+        if ("".equals(target)) {
+            return null;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            return sdf.parse(target);
+        }
     }
 }

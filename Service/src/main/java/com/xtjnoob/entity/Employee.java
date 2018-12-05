@@ -19,12 +19,21 @@ public class Employee {
 
     private Department department;
 
-    public Employee() {
+    public Employee(){}
+
+    public Employee(Integer id, String status, Integer departmentId, String name, String gender, String idCard, Date birthday, String mark) {
+        this.id = id;
+        this.status = status;
+        this.departmentId = departmentId;
+        this.name = name;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.birthday = birthday;
+        this.mark = mark;
     }
 
-    public Employee(String account, String password, String status, Integer departmentId, String name, String gender, String idCard, Date birthday, String mark) {
+    public Employee(String account, String status, Integer departmentId, String name, String gender, String idCard, Date birthday, String mark) {
         this.account = account;
-        this.password = password;
         this.status = status;
         this.departmentId = departmentId;
         this.name = name;
