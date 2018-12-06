@@ -53,12 +53,18 @@ public class SelfController {
 
     public void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        String password = request.getParameter("password");
-        if (StringUtils.isNotEmpty(id) && StringUtils.isNotEmpty(password)) {
-            selfService.changePassword(Integer.parseInt(id), password);
-            response.sendRedirect("/logout.do");
+        String password = request.getParameter("old_password");
+        String newPassword = request.getParameter("new_password");
+        if (StringUtils.isNotEmpty(id) && StringUtils.isNotEmpty(password) && StringUtils.isNotEmpty(newPassword)) {
+            boolean flag = selfService.changePassword(Integer.parseInt(id), password, newPassword);
+            if (flag) {
+                response.getWriter().print("<script>window.parent.location='logout.do'</script>");
+            } else {
+                request.setAttribute("msg","修改失败");
+                request.getRequestDispatcher("/toChangePassword.do").forward(request, response);
+            }
         } else {
-            response.sendRedirect("/main.do");
+            response.sendRedirect("/pages/user_detail.jsp");
         }
     }
 }

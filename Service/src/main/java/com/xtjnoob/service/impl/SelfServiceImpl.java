@@ -7,7 +7,7 @@ import com.xtjnoob.service.SelfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("selfService")
 public class SelfServiceImpl implements SelfService {
 
     @Autowired
@@ -28,9 +28,13 @@ public class SelfServiceImpl implements SelfService {
         }
     }
 
-    public void changePassword(Integer id, String password) {
+    public boolean changePassword(Integer id, String oldPassword, String newPassword) {
         Employee employee = employeeDao.getEmployeeById(id);
-        employee.setPassword(password);
-        employeeDao.update(employee);
+        if (employee.getPassword().equals(oldPassword)) {
+            employee.setPassword(newPassword);
+            employeeDao.update(employee);
+            return true;
+        }
+        return false;
     }
 }
