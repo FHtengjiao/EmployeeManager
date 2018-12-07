@@ -4,9 +4,7 @@ import com.xtjnoob.entity.Employee;
 import com.xtjnoob.entity.Log;
 import com.xtjnoob.service.LogService;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +18,20 @@ public class LogAdvice {
     private LogService logService;
 
     private Log dealLogInfo(JoinPoint joinPoint) {
+        Log log = new Log();
         String module = joinPoint.getTarget().getClass().getSimpleName();
         String operation = joinPoint.getSignature().getName();
 
         HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
         Employee employee = (Employee)request.getSession().getAttribute("USER");
-        String account  = employee.getAccount();
-
-        Log log = new Log();
+        String account = null;
+        if (employee == null) {
+            account = request.getParameter("account");
+            log.setResult("fail");
+        }else {
+            account  = employee.getAccount();
+            log.setResult("success");
+        }
         log.setModule(module);
         log.setOperation(operation);
         log.setOperator(account);
@@ -39,7 +43,6 @@ public class LogAdvice {
             " || execution(* com.xtjnoob.controller.EmpolyeeController.*(..)) && !execution(* com.xtjnoob.controller.*.to*(..)))")
     public void operationLog(JoinPoint joinPoint) {
         Log log = dealLogInfo(joinPoint);
-        log.setResult("success");
         logService.insertOperationLog(log);
     }
 
@@ -48,5 +51,17 @@ public class LogAdvice {
         Log log = dealLogInfo(joinPoint);
         log.setResult(e.getClass().getSimpleName());
         logService.insertSystemLog(log);
+    }
+
+    @After("execution(* com.xtjnoob.controller.SelfController.login(..))")
+    public void loginLog(JoinPoint joinPoint) {
+        Log log = dealLogInfo(joinPoint);
+        logService.insertLoginLog(log);
+    }
+
+    @Before("execution(* com.xtjnoob.controller.SelfController.logout(..))")
+    public void logoutLog(JoinPoint joinPoint) {
+        Log log = dealLogInfo(joinPoint);
+        logService.insertLoginLog(log);
     }
 }
